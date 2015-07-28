@@ -30,8 +30,11 @@
 		<md-content>
 			<md-list>
 				<md-subheader>BLUETOOTH STATUS: {{bcar.bluetooth.status}}</md-subheader>
-				<md-list-item ng-show="bcar.bluetooth.status=='CONNECTED'">
-					UHU
+				<md-list-item layout="row" layout-align="center center">
+					<span ng-show="bcar.bluetooth.status=='DISABLED'">PLEASE ENABLE BLUETOOTH</span>
+					<md-button class="md-raised md-primary" ng-show="bcar.bluetooth.status=='DISCONNECTED'" ng-click="connectBluetooth()">
+						Connect to one slave
+					</md-button>
 				</md-list-item>
 				<md-subheader>LEFT: {{bcar.left}}</md-subheader>
 				<md-list-item>
@@ -58,6 +61,8 @@
 			</md-list>
 		</md-content>
 	</md-content>
+	<!-- Cordova -->
+	<script src="cordova.js"></script>
 	<!-- Dependencies scripts-->
 	<script src="node_modules/angular/angular.js"></script> 
   <script src="node_modules/angular-aria/angular-aria.js"></script> 

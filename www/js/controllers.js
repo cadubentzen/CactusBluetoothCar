@@ -1,16 +1,36 @@
+/* global bluetoothSerial */
 (function(){
 	'use strict';
 	angular.module('BCarControllers',['BCarServices'])
 
-	.controller('BCarController', ['$scope','$mdDialog',function($scope,$mdDialog){
+	.controller('BCarController', ['$scope','$mdDialog','$interval','BCar',function($scope,$mdDialog,$interval,BCar){
 		$scope.bcar = {
 			left: 0,
 			right: 0,
 			message: "AF000F000",
 			bluetooth: {
-				status: "DISCONNECTED"
+				status: "",
+				message: "",
+				sending: false
 			}
 		};
+
+		var updateStatus = function() {
+			bluetoothSerial.isEnabled(
+		    function() {
+		      $scope.bcar.bluetooth.status = "DISCONNECTED";
+		      $scope.bcar.bluetooth.message = " - PLEASE CONNECT TO ONE";
+		      //console.log('isEnabled');
+				},
+		    function() {
+	        $scope.bcar.bluetooth.status = "DISABLED";
+	        $scope.bcar.bluetooth.message = " - PLEASE ENABLE";
+	        //console.log('isDisabled');
+		    }
+			);
+		};
+
+		var statusTimer = $interval(updateStatus,1000);
 
 		$scope.sendCommand = function(left,right){
 			console.log('left: ',left,' right: ',right);
@@ -36,6 +56,10 @@
 					.ok('Got it!')
 					.targetEvent(ev)
 			);
+		};
+
+		$scope.connectBluetooth = function(){
+
 		};
 	}]);
 })();
