@@ -8,9 +8,18 @@
 		var _message = "";
 
 		return {
-			pairedDevices: function(){return _pairedDevices},
-			status: function(){return _status},
-			message: function(){return _message}
+			setPaired: function(newPaired){
+				_pairedDevices = newPaired;
+			},
+			pairedDevices: function(){
+				return _pairedDevices
+			},
+			status: function(){
+				return _status
+			},
+			message: function(){
+				return _message
+			}
 		};
 	});
 })();

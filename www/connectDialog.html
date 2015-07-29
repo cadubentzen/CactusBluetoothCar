@@ -1,0 +1,13 @@
+<md-dialog aria-label="Connect" ng-blur="hide()">
+	<md-dialog-content>
+		<md-list>
+			<md-subheader>SELECT ONE OF BELOW</md-subheader>
+			<md-list-item ng-repeat="device in connect.devices" class="md-2-line" ng-click="answer(device)">
+			<div class="md-list-item-text">
+				<h3>{{device.name}}</h3>
+				<p>{{device.address}}</p>
+			</div>
+			</md-list-item>
+		</md-list>
+	</md-dialog-content>
+</md-dialog>

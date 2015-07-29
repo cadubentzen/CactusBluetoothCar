@@ -12,14 +12,10 @@
 				<h2>Bluetooth Car</h2>
 				<span flex></span>
 				<md-menu>
-					<md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu()">
+					<md-button style="margin: 0" class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu()">
 	          <md-icon md-menu-origin md-svg-icon="img/ic_more_vert_white_24px.svg"></md-icon>
 	        </md-button>
 	        <md-menu-content width="4">
-	        	<md-menu-item md-menu-align-target>
-	        		<md-button>Connect</md-button>
-	        	</md-menu-item>
-	        	<md-menu-divider></md-menu-divider>
 	        	<md-menu-item>
 	        		<md-button ng-click="showAbout($event)">About</md-button>
 	        	</md-menu-item>
@@ -30,11 +26,17 @@
 		<md-content>
 			<md-list>
 				<md-subheader>BLUETOOTH STATUS: {{bcar.bluetooth.status}}</md-subheader>
-				<md-list-item layout="row" layout-align="center center">
+				<md-list-item layout="row" layout-align="center center" ng-show="!bcar.bluetooth.sending">
 					<span ng-show="bcar.bluetooth.status=='DISABLED'">PLEASE ENABLE BLUETOOTH</span>
-					<md-button class="md-raised md-primary" ng-show="bcar.bluetooth.status=='DISCONNECTED'" ng-click="connectBluetooth()">
+					<md-button class="md-raised md-primary" ng-show="bcar.bluetooth.status=='DISCONNECTED'" ng-click="showConnect()">
 						Connect to one slave
 					</md-button>
+				</md-list-item>
+				<md-list-item ng-show="bcar.bluetooth.sending" layout="row" layout-align="center center">
+					<div class="md-list-item-text" layout="column" layout-align="center left" style="border: 1px solid; padding: 1px">
+						<h3 style="margin: 0">{{bcar.bluetooth.connectedDevice.name}}</h3>
+						<p style="margin: 0">{{bcar.bluetooth.connectedDevice.mac}}</p>
+					</div>
 				</md-list-item>
 				<md-subheader>LEFT: {{bcar.left}}</md-subheader>
 				<md-list-item>
